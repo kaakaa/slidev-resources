@@ -16,10 +16,11 @@ https://rabbit-shocker.org/ja/
 * Rubyのパパ・Matzがよく使っている
 
 ## 特徴
-* スライドの下部にウサギとカメが表示される
-  * ウサギ: ページが進むごとに右に移動する
-  * カメ: 時間経過とともに右に進む
-* カメよりウサギが遅れていると、プレゼンが時間内に終わらない
+* スライドの下部に<span class="text-pink-500">ウサギ</span>と<span class="text-green-500">カメ</span>が表示される
+  * <span class="text-pink-500">ウサギ</span>: ページが進むごとに右に移動する
+  * <span class="text-green-500">カメ</span>: 時間経過とともに右に進む
+    * 制限時間は `?time=10`
+* <span class="text-pink-500">ウサギ</span>が<span class="text-green-500">カメ</span>より遅れていると、プレゼンが時間内に終わらない
 
 ::right::
 
@@ -28,6 +29,7 @@ https://rabbit-shocker.org/ja/
 ---
 
 # Slidevでウサカメする
+使用したSlidevの機能
 
 * [Global Layers \| Slidev](https://sli.dev/custom/global-layers.html)
 > Global layers allow you to have custom components that persistent across slides. This could be useful for having footers, cross-slides animations, global effects, etc.

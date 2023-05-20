@@ -36,22 +36,20 @@ layout: two-cols
 .
 ├── 20230202_supply-chain/
 ├── 20230406_sidejob/
-├── 20230601_slidev/
+├── <span class="text-orange-500">20230601_slidev/</span>
 │   ├── <span class="text-orange-500">pages/</span>
 │   │   ├── slidev-github.md
 │   │   ├── slidev-rabbit.md
 │   │   └── slidev.md
 │   ├── <span class="text-orange-500">public/</span>
 │   └── <span class="text-orange-500">slides.md</span>
-├── <span class="text-blue-300">(docs/)</span>
-├── <span class="text-blue-300">(dist/)</span>
+├── <span class="text-blue-300">(docs/) ---> GitHub Pages(gh-pages)</span>
+├── <span class="text-blue-300">(dist/) ---> GitHub Releases</span>
 ├── README.md
 ├── package-lock.json
 └── package.json
 </code></pre>
 
----
-layout: two-cols
 ---
 
 # 成果物管理
@@ -61,7 +59,7 @@ layout: two-cols
 * GitHub ReleaseにPDFファイルがリリースされる
 * GitHub PagesにSPAがリリースされる
 
-::right::
+![](/20230601_slidev/structure.png)
 
 ---
 layout: two-cols
@@ -70,15 +68,14 @@ layout: two-cols
 # GitHub Actions
 
 * 日本語フォントのインストール (豆腐 "□" 回避)
-* Git Submodule (gh-pagesブランチ)含めてcheckout
+* リポジトリのcheckout
 * npm環境セットアップ
 * PDFエクスポート & Release作成
   * `${GITHUB_REF##*/}` = tag名
 
-
 ::right::
 
-```yaml {all|8-9|10-12|14-18|19-23}
+```yaml {all|8-9|10-12|13-17|18-25}
 ...
 jobs:
   release:
@@ -91,13 +88,15 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: true
-      - run: git submodule status --recursive
       - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: "npm"
-      - run: npm install
-      - run: npm run export --slide=${GITHUB_REF##*/}
+      - run: npm ci
+      - name: Export slidev as PDF
+        run: |
+          npm run export --slide=${GITHUB_REF##*/}
+          npm run export:dark --slide=${GITHUB_REF##*/}
       - uses: softprops/action-gh-release@v1
         with:
           files: |
@@ -112,7 +111,7 @@ layout: two-cols
 <div class="color-coolgray-600">
 <ul>
   <li>日本語フォントのインストール (豆腐 "□" 回避)</li>
-  <li>Git Submodule (gh-pagesブランチ)含めてcheckout</li>
+  <li>リポジトリcheckout</li>
   <li>npm環境セットアップ</li>
   <li>PDFエクスポート & Release作成</li>
   <li style="list-style-type:none;">
@@ -122,22 +121,36 @@ layout: two-cols
 </div>
 
 * SPAビルド
-* `gh-pages`ブランチ更新
-* `main`ブランチのSubmodule(`gh-pages`)を更新
+* GitHub Pagesへデプロイ
+  * (GitHub Pagesのトップページにリンクを追加)
 
 ::right::
 
-```yaml {2|3-6|7-11}
+```yaml {2-3|4-11|12-17}
 ...(続き)...
-      - run: npm run build --slide=${GITHUB_REF##*/}
-      - uses: EndBug/add-and-commit@v9
+      - name: Build slidev as SPA
+        run: npm run build --slide=${GITHUB_REF##*/}
+      - name: Deploy pages
+        uses: crazy-max/ghaction-github-pages@v2
         with:
-          cwd: './docs'
-          new_branch: 'gh-pages'
-      - uses: EndBug/add-and-commit@v9
-        with:
-          cwd: '.'
-          new_branch: 'main'
-          message: 'update submodule'
-          
+          keep_history: true
+          build_dir: docs
+          verbose: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  update:
+    needs: release
+    permissions:
+      contents: write
+    uses: ./.github/workflows/update-index-page.yaml
+    secrets: inherit
 ```
+
+---
+
+# というGitHub Template Repositoryを作成
+
+https://github.com/kaakaa/slidev-resources-template  
+-> https://github.com/kaakaa/slidev-resources
+
+<img src="/20230601_slidev/slidev-resources-template.png" style="height:400px;"/>

@@ -5,7 +5,7 @@ layout: two-cols
 # Slidevとは
 
 * Markdownからスライド資料を作成できるプレゼンテーションフレームワーク
-* Vue等のフロントエンド界隈で著名な[Anthony Fu](https://antfu.me/)氏作
+* NuxtLabs社の[Anthony Fu](https://antfu.me/)氏作
 * 2年前ぐらいに日本でも話題に
   * [Slidevを導入してMarkdownで美しいスライドを書こう \- Qiita](https://qiita.com/loftkun/items/2fbeddc9449eb5d85dfd)
   * [Hackableなスライド作成ツールSlidevで遊ぶ](https://zenn.dev/hiroko_ino/articles/hackable-slidev-play-lt)
@@ -13,8 +13,15 @@ layout: two-cols
 ::right::
 
 <div>
-  <img src="/20230601_slidev/slidev.png"/>
+  <img src="/20230601_slidev/slidev.png" style="height:480px;"/>
 </div>
+
+---
+
+# NPM Trends
+marp | slidev | reveal.js
+
+![](/20230601_slidev/npm_trends.png)
 
 ---
 
@@ -31,7 +38,7 @@ $ npm run dev
 --> 開発用にスライドアプリを起動(ホットリロード付)
 
 $ npm run export
---> スライドをPDFファイルとしてエクスポート
+--> スライドをPDFファイルとしてエクスポート (要 playwright-chromium)
 
 $ npm run build
 --> スライドをSPAとしてビルド
@@ -67,6 +74,9 @@ const c = add(1, 2)
 ::right::
 
 ```
+---
+layout: two-cols
+---
 # Markdownで書ける
 いろいろと
 
@@ -89,6 +99,7 @@ function add(
 /// ...as many lines as you want
 const c = add(1, 2)
 '``
+---
 ```
 
 ---
