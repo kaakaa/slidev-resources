@@ -10,9 +10,11 @@
   "dependencies": {
     "@slidev/cli": "^0.40.16",
     "@slidev/theme-default": "*",
-    "@slidev/theme-seriph": "*"
+    "@slidev/theme-seriph": "*",
+    "slidev-addon-rabbit": "^0.1.0"
   },
   "devDependencies": {
+    "@iconify-json/emojione-monotone": "^1.1.4",
     "playwright-chromium": "^1.33.0"
   }
 }
