@@ -14,6 +14,8 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
+      - name: Install Japanese font            # Insert these 2 lines
+        run: sudo apt install -y fonts-noto    #     to install Japanese font
       - uses: actions/checkout@v3
         with:
           submodules: true
