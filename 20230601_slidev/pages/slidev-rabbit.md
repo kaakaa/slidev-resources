@@ -24,7 +24,8 @@ https://rabbit-shocker.org/ja/
 
 ::right::
 
-![](/20230601_slidev/rabbit_matz.png)
+![](/20230601_slidev/rabbit-matz.png)
+<span class="text-size-sm">[Matz Keynote / Yukihiro "Matz" Matsumoto @yukihiro_matz](https://www.youtube.com/watch?v=m_LW5WIYJ9Q)</span>
 
 ---
 
