@@ -17,10 +17,12 @@ This repository manage my [slidev](https://sli.dev/) resources.
 
 Adding `githubPages.ogp=true` to frontmatter enables OGP on GitHub Pages.
 
-\`\`\`yaml
+```yaml
+...
 githubPages:
   ogp: true
-\`\`\`
+...
+```
 
 Parameters of OGP are from a front-matter in slidev entry file.
 
