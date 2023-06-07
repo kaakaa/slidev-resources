@@ -147,6 +147,37 @@ layout: two-cols
 ```
 
 ---
+layout: two-cols
+---
+
+# その後、OGP対応もした
+
+<div class="mr-5">
+<Tweet id="1662822438600871936" />
+</div>
+
+::right::
+
+<div class="mt-15"/>
+
+#### ビルド中に以下のファイルを生成
+
+`index.html`
+```html
+<head>
+  <meta property="og:title" content="${title}"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="${url}"/>
+  <meta property="og:image" content="${imageUrl}"/>
+  <meta property="og:description" content="${info}"/>
+</head>
+```
+
+`preview.png`
+
+生成したPDFの戦闘ページをPNG形式で切り取り (PDF.js)
+
+---
 
 # というGitHub Template Repositoryを作成
 
