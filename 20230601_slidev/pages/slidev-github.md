@@ -8,7 +8,7 @@ layout: section
 
 # やりたい事
 
-* SlidevはMarkdown(テキスト)ベースなので、GitHubで管理したい
+* Slidevの原稿はMarkdown(テキスト)ベースなので、GitHubで管理したい
   * 資料作成ごとにリポジトリ作るのは面倒なので、1リポジトリで管理したい
 * GitHub Actions使ってビルドできるようにしたい
 
@@ -16,19 +16,18 @@ layout: section
 layout: two-cols
 ---
 
-# リポジトリ構成
+# 現在のリポジトリ構成
 
 * スライド資料ごとにフォルダ分け
   * <span class="text-orange-500">pages/</span>: 分割したスライドページ
   * <span class="text-orange-500">public/</span>: 画像などのアセットファイル
   * <span class="text-orange-500">slides.md</span>: メインのスライド (※ファイル名固定)
-* ビルドコマンド (GitHub Actions用)
+* ビルドコマンド
+  * `npm run dev 20230601_slidev/slides.md`
+    * エントリとなるMarkdownファイルを指定
   * `npm run build --slide=20230601_slidev`
-    * <span class="text-blue-300">docs/</span>にSPAビルド
-    * GitHub Pagesで公開するための`gh-pages`　ブランチへのサブモジュール
   * `npm run export --slide=20230601_slidev`
-    * <span class="text-blue-300">dist/</span>にPDFビルド
-    * GitHub Releaseとして公開
+    * ディレクトリ名を指定して実行
 
 ::right::
 
@@ -43,8 +42,6 @@ layout: two-cols
 │   │   └── slidev.md
 │   ├── <span class="text-orange-500">public/</span>
 │   └── <span class="text-orange-500">slides.md</span>
-├── <span class="text-blue-300">(docs/) ---> GitHub Pages(gh-pages)</span>
-├── <span class="text-blue-300">(dist/) ---> GitHub Releases</span>
 ├── README.md
 ├── package-lock.json
 └── package.json
@@ -52,12 +49,12 @@ layout: two-cols
 
 ---
 
-# 成果物管理
+# GitHub Actionsでのビルド・デプロイ
 
-* ディレクトリ名でタグを打つ
-  * 例: `20230601_slidev`
-* GitHub ReleaseにPDFファイルがリリースされる
-* GitHub PagesにSPAがリリースされる
+1. ディレクトリ名でタグを打つ
+   * 例: `20230601_slidev`
+2. GitHub PagesにSPAがリリースされる
+3. GitHub ReleaseにPDFファイルがリリースされる
 
 ![](/20230601_slidev/structure.png)
 

@@ -1,4 +1,10 @@
 ---
+layout: section
+---
+
+# ざっくりSlidev
+
+---
 layout: two-cols
 ---
 

@@ -39,7 +39,9 @@ addons:
 # はじめに
 
 * ここ数年、仕事以外の発表資料作成はSlidevを使っている
-* GitHubでMarkdown原稿を管理して、GitHub ActionsでPDF/SPAエクスポートしていけそうな感じになってきたのでやってることの棚卸し
+* 使い続ける中で原稿の管理方法とか試行錯誤してるので、その棚卸し
+  * GitHubでMarkdown原稿を管理して、GitHub ActionsでPDF/SPAとしてデプロイ
+  * ウサギとカメ
 
 ---
 src: ./pages/slidev.md
