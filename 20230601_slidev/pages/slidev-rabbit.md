@@ -19,8 +19,7 @@ https://rabbit-shocker.org/ja/
 * スライドの下部に<span class="text-pink-500">ウサギ</span>と<span class="text-green-500">カメ</span>が表示される
   * <span class="text-pink-500">ウサギ</span>: ページが進むごとに右に移動する
   * <span class="text-green-500">カメ</span>: 時間経過とともに右に進む
-    * 制限時間は `?time=10`
-* <span class="text-pink-500">ウサギ</span>が<span class="text-green-500">カメ</span>より遅れていると、プレゼンが時間内に終わらない
+*q <span class="text-pink-500">ウサギ</span>が<span class="text-green-500">カメ</span>より遅れていると、プレゼンが時間内に終わらない
 
 ::right::
 

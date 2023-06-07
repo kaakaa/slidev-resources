@@ -157,11 +157,13 @@ layout: two-cols
 
 <div class="mt-15"/>
 
-#### ビルド中に以下のファイルを生成
+#### GitHub Action内で以下の2ファイルを生成
 
-`index.html`
+`index.html`  
+
 ```html
 <head>
+  <!-- Slidev原稿のfront matterの情報を利用 (title, info) -->
   <meta property="og:title" content="${title}"/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="${url}"/>
@@ -172,7 +174,8 @@ layout: two-cols
 
 `preview.png`
 
-生成したPDFの戦闘ページをPNG形式で切り取り (PDF.js)
+OGPとして表示される画像は生成したPDFの先頭ページをPNG形式で切り取り  
+<span class="c-gray text-xs">実装をCopilot Chatくんと頑張りましたが上手くいかなかったので、自力で探したライブラリを使って実装😢</span>
 
 ---
 
