@@ -1,0 +1,6 @@
+{
+    "markdown.copyFiles.destination": {
+        "*/pages/*": "../public/",
+        "*": "./public/"
+    }
+}
