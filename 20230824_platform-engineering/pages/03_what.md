@@ -55,6 +55,28 @@ layout: two-cols
   </div>
 </div>
 
+
+---
+layout: two-cols
+---
+
+# IDP
+
+* 2023/08/16に発表されたGartner「**先進テクノロジーのハイプサイクル2023年**」には `Platform Engineering` に代わって `Internal Developer Portal` が登場している
+
+::right::
+
+<div class="mt-3 ml-5">
+  <div class="text-xs mb-2">
+    <img src="/gartner-hype-cycle-2023.png" style="height: 200px"/>
+    ref: <a href="https://www.publickey1.jp/blog/23/2023gitopsai.html">米ガートナー「先進テクノロジーのハイプサイクル2023年」を発表... - Publickey</a>
+  </div>
+  <div class="text-xs mb=1">
+    <img src="/gartner-hype-cycle.png" style="height: 180px"/>
+    ref: <a href="https://www.gartner.co.jp/ja/newsroom/press-releases/pr-20220816">Gartner、「先進テクノロジのハイプ・サイクル：2022年」を発表</a>
+  </div>
+</div>
+
 ---
 layout: statement
 ---
