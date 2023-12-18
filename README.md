@@ -15,7 +15,7 @@ This repository manage my [slidev](https://sli.dev/) resources.
      * e.g.: `my-slide/public/image.png` can be refered as `/image.png` from `my-slide/slides.md`
 3. Commit subdirectory (e.g.: `my-slide/`) and create a tag with the name of the directory (e.g.: `my-slide`)
 
-### Set up environment for writing a slide
+### Set up environment to write a slide
 
 This repository has devcontainer setting, so you can create Codespace from [Your Codespaces](https://github.com/kaakaa/slidev-resources/codespaces) and write slidev on it.
 
