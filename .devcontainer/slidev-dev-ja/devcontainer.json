@@ -1,6 +1,6 @@
 {
-    "name": "Slidev Dev",
-    "image": "mcr.microsoft.com/vscode/devcontainers/universal:2-linux",
+    "name": "Slidev Dev (ja)",
+    "build": {"dockerfile": "Dockerfile"},
     "customizations": {
         "vscode": {
             "settings": {},
