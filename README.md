@@ -1,11 +1,13 @@
 [![Release slidev](https://github.com/kaakaa/slidev-resources/actions/workflows/release.yaml/badge.svg)](https://github.com/kaakaa/slidev-resources/actions/workflows/release.yaml)
 
-# slidev-resources [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/kaakaa/slidev-resources)
+# slidev-resources
 
 This repository manage my [slidev](https://sli.dev/) resources.
 
 * [GitHub Pages(SPA)](https://kaakaa.github.io/slidev-resources)
 * [GitHub Releases(PDF)](https://github.com/kaakaa/slidev-resources/releases)
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/kaakaa/slidev-resources)
 
 ## Write and deploy a slide
 1. Run `npm install`
