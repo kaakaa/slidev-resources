@@ -37,13 +37,12 @@ addons:
 
 # はじめに
 
-* サプライチェーンセキュリティ周りでSigstoreが話題
-  * Linux Foundation傘下のOpenSSFにより進められているソフトウェア署名関連のプロジェクト
-  * `Keyless Signing`技術によりソフトウェア署名用の鍵管理の手間を無くすことが出来ることがウリ
+* サプライチェーンセキュリティ周りで **Sigstore** が話題
+  * Linux Foundation傘下のOpenSSFにより進められている **ソフトウェア署名関連** のプロジェクト
     * ソフトウェア成果物に対する署名(および検証)を推進する取り組み
     * HTTPS推進におけるLet's Encryptのような位置付け
-* 自分たちで開発しているソフトウェアをセキュアにするためにすぐに使える技術ではない
-  * ただし、数年後にSigstoreが普及した場合、開発に使用しているOSSの検証技術としてお世話になる可能性はある
+* 自分たちで開発しているソフトウェアをセキュアにするためにすぐに使える技術ではない(と思う)
+  * ただ、Sigstoreが普及した場合、利用しているOSSの検証技術としてお世話になる可能性がある
 
 ---
 
@@ -52,10 +51,10 @@ addons:
 * ソフトウェアサプライチェーンにおいて、各構成物の来歴/出所(Provenance)を知ることは重要
   * **完全性**: 構成物を取得する過程において意図せぬ改竄等が行われていないか
   * **真正性**: 構成物の作者/配布者が意図したものを入手しているか
-* 今までは「成果物のダイジェスト」や「成果物に対する署名」によって担保してきた
+* 今までは「成果物のダイジェスト」や「署名」によって担保してきた (?)
 
-<div class="item-center self-center text-center">
-<img class="item-center self-center text-center h50" src="/summary-dalle3.png">
+<div class="item-center self-center text-center mt-10">
+  <img class="item-center self-center text-center h50" src="/summary-dalle3.png">
 </div>
 
 ---
@@ -64,6 +63,10 @@ layout: two-cols
 
 # 背景
 Maven Centralの例
+
+Maven CentralやGitHub Releasesなどでは、利用者が配布物を検証するための情報も一緒に配布されていることがある。（任意）
+
+<hr class="mt-5 mb-5 mr-3"/>
 
 * **XXXX.jar**: 配布物
 * **XXXX.jar.md5**: 配布物のMD5 Checksum
@@ -75,6 +78,8 @@ Maven Centralの例
 <div class="mt-10 ml-5">
   <img src="/background-mavencentral.png">
   <p class="text-xs text-center">図: Maven Central (log4j-core)</p>
+  <img class="mt-3 h-52" src="/background-ghrelease.png">
+  <p class="text-xs text-center">図: <a href="https://github.com/aquasecurity/trivy/releases">GitHub Release - Trivy</a> (参考)</p>
 </div>
 
 ---
@@ -88,6 +93,12 @@ Checksumの検証
 * <span class="text-orange-400">**XXXX.jar.md5**: 配布物のMD5 Checksum</span>
 * <span class="text-orange-400">**XXXX.jar.sha1**: 配布物のSHA1 Checksum</span>
 * **XXXX.jar.asc**: 配布物の署名
+
+<hr class="mt-5 mb-5 mr-3"/>
+
+Maven Centralから配布されている成果物が攻撃者によって書き換えられた場合に、改竄を検知できる。
+
+→ <span class="text-red-400">成果物と共にChecksumファイルも書き換えられた場合、改竄を検知できない。</span>
 
 ::right::
 
@@ -104,7 +115,7 @@ $ sha1sum log4j-core-2.21.0.jar
 122e1a9e0603cc9eae07b0846a6ff01f2454bc49  log4j-...
 ```
 
-<div class="mt-5 bg-gray-50">
+<div class="mt-5 ml-1 bg-gray-50">
 
 ```mermaid {theme: 'natural'}
 sequenceDiagram
@@ -126,14 +137,6 @@ sequenceDiagram
 <p class="text-xs text-center">図: Checksumによる改竄検知フロー</p>
 
 ---
-layout: center
----
-
-# 攻撃者が成果物を改竄できるならば
-# 同時にChecksumも改竄できるのでは? 🤔
-
-
----
 layout: two-cols
 ---
 
@@ -147,7 +150,7 @@ GPG署名の検証
 
 <hr class="mt-5"/>
 
-攻撃者がMaven Centralの成果物と署名ファイルを改竄しても、公開鍵による検証が失敗するため、改竄を検知できる。
+攻撃者がMaven Centralの成果物と署名ファイルを改竄しても、公開鍵を使った検証が失敗するため、改竄を検知できる。
 
 ::right::
 
@@ -255,22 +258,9 @@ layout: two-cols
     <li><span class="text-red-400">秘密鍵管理が大変 (鍵ファイル, パスフレーズ等) ☠️</span></li>
     <li><span class="text-red-400">有効期限の管理も大変 (期限切れ等の対応) ☠️</span></li>
     <li><span class="text-red-400">公開鍵の配布が面倒 ☠️</span></li>
+    <li>→ 署名プロセスの課題を解決するためのSigstore</li>
   </ul>
 </div>
-
----
-
-# 背景
-
-* ソフトウェアサプライチェーンにおいて、各構成物の来歴/出所(Provenance)を知ることは重要
-  * **完全性**: 構成物を取得する過程において意図せぬ改竄等が行われていないか
-  * **真正性**: 構成物の作者/配布者が意図したものを入手しているか
-* 今までは「成果物のChecksum/Digest」や「成果物に対する署名」によって担保してきた
-
-<hr class="mt-5 mb-5"/>
-
-* <span class="text-red-400">署名による検証が堅牢だが、署名プロセスにおける鍵管理コストが高い</span>
-  * → Sigstoreによるソフトウェア署名
 
 ---
 
@@ -281,10 +271,10 @@ layout: two-cols
   * 2021/03: Red Hat, Google, Purdue University主導でスタート
   * 2022/10: General Availability (v1.0) リリース
 * 以下の3つのツール/サービスによりKeyless Signingを実現する
-  * `Cosign`: ソフトウェア成果物やOCIイメージの署名及び検証を行うクライアントツール
+  * **Cosign**: ソフトウェア成果物やOCIイメージの署名及び検証を行うクライアントツール
     * Flucioと連携することでKeyless Siginingを実現可能
-  * `Fulcio`: **OIDCからのユーザー情報を元に署名用の短命の証明書を発行する認証局**
-  * `Rekor`: 署名プロセスの透明性を担保するために、証明書発行・署名等の情報やメタデータを保管するサービス (Transparency Logs)
+  * **Fulcio**: OIDC Tokenを元に署名ファイルに対する短命の証明書を生成するための認証局
+  * **Rekor**: 署名プロセスの透明性を担保するために、証明書発行・署名等の情報やメタデータを保管するサービス (Transparency Logs)
 
 ---
 layout: two-cols
@@ -318,9 +308,8 @@ Sigstoreによる署名/検証フロー
 
 <hr class="mt-5 mb-5"/>
 
-* SigstoreによるKeyless Signingにより、ソフトウェア署名の仕組みを少ない労力で導入できるようになった
+* SigstoreによるKeyless Signingにより、ソフトウェア署名の仕組みを少ない労力で導入できるようになる
 * ただし、Sigstore関連の様々なサービス (`Fulcio`, `Rekor`等)に依存することになる
-  * 開発者のコストを受け持つサービスが現れたという解釈もできる
 
 ---
 
@@ -479,7 +468,7 @@ Docker/OCI Imageのkeyless signing
 # Cosignによる署名
 Docker/OCI Imageのkeyless signing
 
-`cosign sign-blob`と`cosign sign`でtlogの公開鍵部分が異なる
+「鍵による署名」と「Keyless Signing」でtlogの公開鍵部分が異なる
 
 <div>
   <img class="h85" src="/cosign-diff-tlog.png">
@@ -495,7 +484,7 @@ Docker/OCI Imageのkeyless signing
 ```shell　{1-4|7-11|15-16}
 $ cosign verify \
     --certificate-oidc-issuer https://github.com/login/oauth \  # 署名に使ったIDP
-    --certificate-identity stooner.hoe@gmail.com  \             # 署名者のOIDCアカウント
+    --certificate-identity example@gmail.com  \             # 署名者のOIDCアカウント
     ghcr.io/kaakaa/nginx@sha256:6b06964cdbbc517102ce5e0cef95152f3c6a7ef703e4057cb574539de91f72e6
 
 Verification for ghcr.io/kaakaa/nginx@sha256:6b06964cdbbc517102ce5e0cef95152f3c6a7ef703e4057cb574539de91f72e6 --
@@ -570,40 +559,61 @@ publish-npm:
         NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 ```
 
-
-
-Sigstoreにより数行の記述追加のみでソフトウェア署名が実演可能になった。  
+Sigstoreにより数行の記述追加のみでソフトウェア署名が実現可能になった。  
 ただし、アカウント管理の重要性は増大。  
 <span class="text-xs">ref: <a href="https://github.blog/2022-02-01-top-100-npm-package-maintainers-require-2fa-additional-security/">Top-100 npm package maintainers now require 2FA, and additional security-focused improvements to npm - The GitHub Blog (2022/2/1)</a></span>
 * [Top\-100 npm package maintainers now require 2FA, and additional security\-focused improvements to npm \- The GitHub Blog](https://github.blog/2022-02-01-top-100-npm-package-maintainers-require-2fa-additional-security/) (2022/02/01)
 
+---
+
+# Roadmap
+
+
+* OSSパッケージマネージャーへの取り込み (Homebrew, PyPI, Mavenなど)
+* プライベート環境へのデプロイ手順の簡略化
+* アカデミアとのコラボレーション (署名プロセス監視など)
+* シームレスな検証プロセス
+
+### 
 
 
 ---
 
-## Wrap up
+# Wrap up
 
-* Sigstoreによりソフトウェア署名における鍵管理の必要性を排除可能になる
+* Sigstoreによりソフトウェア署名を運用する上での鍵管理が不要になった
   * OIDC Tokenベースとなるため、CI等への組み込みが非常に容易となる(gh action/npm provenance等)
-    * 現状、npmが先行しているが、各パッケージマネージャーも何かしらの対応はしてきそう
+    * 現状、npmが先行しているが、他パッケージマネージャー対応(Python, Maven)も進行中
+    * [Sigstore: Simplifying Code Signing for Open Source Ecosystems \- Open Source Security Foundation](https://openssf.org/blog/2023/11/21/sigstore-simplifying-code-signing-for-open-source-ecosystems/)
   * OSS開発者がソフトウェア署名を導入しやすくなり、社会全体としてのセキュリティ底上げが期待される
     * HTTPS推進におけるLet's Encryptのような存在
 * 個人管理の鍵ファイルから、SaaS(Fulcio, Rekor)依存で、信頼性が向上するかはユースケース次第
   * 「署名を実施されたこと」自体を公開したくない場合(BtoB等)は、Public SaaSを利用できない
     * [Fulcio](https://github.com/sigstore/fulcio), [Rekor](https://github.com/sigstore/rekor)はOSSで開発されているが、これらをセルフホストするなら鍵共有の方が楽そう
+    * Privateでの運用もターゲットにはなっている(ref. [Roadmap](https://github.com/sigstore/community/blob/main/ROADMAP.md))
 
-## 感想
-* 即効性のあるセキュリティ対策ではないが、業界全体の動向としては押さえて方が良さそう
+---
+
+# 感想
+* 即効性のあるセキュリティ対策ではないが、業界全体の動向としては押さえておいた方が良さそう
   * npmなどは何も考えず `--provenance` オプション指定で良い気がする
   * OSS利用者側(検証側)としてどう動けばいいかはまだよくわかっていない
-* 各Registryごとに異なっていた署名管理/検証プロセスがcosignを通じて統一されると嬉しい(のかな?)
+    * 検証物ごとにアカウント情報を一つ一つ指定するのは現実的ではない
+    * Container Image単位であれば理解はできるかも
+* 各Registryごとに異なっていた署名管理/検証プロセスがcosignを通じて統一されると嬉しそう
 
 ---
 
 # 参考
 
-* Sigstoreを使うと安全なんですか？
-  * [sigstoreのKeyless Signingでは何を検証しているのか \- sometimes I laugh](https://sil.hatenablog.com/entry/sigstore-keyless-signing-what-to-verify)
-* OCIイメージに格納される署名はどんな情報なんですか?
-  * [GitHub Actions で distroless イメージのコンテナ署名を検証する \- ISID テックブログ](https://tech.isid.co.jp/entry/verify-distroless-signature-using-cosign-on-github-actions)
-
+* [Sigstore で OSS コード署名｜BLOG｜ サイバートラスト](https://www.cybertrust.co.jp/blog/oss-security/sigstore-code-signing.html)
+  * Cosignによる署名/検証フローについて
+* [sigstoreのKeyless Signingでは何を検証しているのか \- sometimes I laugh](https://sil.hatenablog.com/entry/sigstore-keyless-signing-what-to-verify)
+  * Sigstoreによって防ぐことができる攻撃について
+* [GitHub Actions で distroless イメージのコンテナ署名を検証する \- ISID テックブログ](https://tech.isid.co.jp/entry/verify-distroless-signature-using-cosign-on-github-actions)
+  * OCI Registryに格納される署名情報がどのようなものか
+* MISC
+  * [sigstoreによるコンテナイメージやソフトウェアの署名 \- knqyf263's blog](https://knqyf263.hatenablog.com/entry/2022/02/06/213003)
+  * [Safeguard your containers with new container signing capability in GitHub Actions \- The GitHub Blog](https://github.blog/2021-12-06-safeguard-container-signing-capability-actions/)
+  * [ソフトウェアサプライチェーンセキュリティのための GitHub Actions ワークフロー \| 豆蔵デベロッパーサイト](https://developer.mamezou-tech.com/blogs/2022/08/17/github-actions-workflows-for-software-supply-chain-security/)
+  * [kubernetes 1\.24 から提供コンテナイメージが Cosign で署名されるようになったので検証してみよう \| by makocchi \| Medium](https://makocchi.medium.com/container-image-verification-by-cosign-ja-d4ec867937db)
