@@ -1,5 +1,5 @@
 ---
-title: What is Sigstore?
+title: ソフトウェア署名のこれまでとこれからとSigstoreと
 githubPages:
   ogp: true
 theme: seriph
@@ -14,7 +14,7 @@ highlighter: shiki
 lineNumbers: true
 # some information about the slides, markdown enabled
 info: |
-  Sigstoreの概要とnpm provenance
+  Sigstoreの概要
 # persist drawings in exports and build
 drawings:
   persist: false
@@ -25,7 +25,7 @@ addons:
   - slidev-addon-rabbit
 ---
 
-# ソフトウェア署名のこれからと今後とSigstoreと
+# ソフトウェア署名のこれまでとこれからとSigstoreと
 
 <div class="pt-12">
   <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
