@@ -1,5 +1,6 @@
 ---
 theme: seriph
+highlighter: shiki
 background: https://source.unsplash.com/collection/94734566/1920x1080
 class: text-center
 info: |
@@ -12,9 +13,9 @@ githubPages:
   ogp: true
 ---
 
-# Welcome to Slidev
+# Web Page Diff
 
-Presentation slides for developers
+Webページの変更箇所を知りたい...
 
 <div class="pt-12">
   <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
@@ -38,14 +39,25 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 ---
 
-# Motivation
+# <mdi-meditation /> Motivation
 
-* 課題
-  * SaaSサービスは日々更新されており、それに合わせてドキュメントも改版されている
-  * ドキュメント関連のソースが変更履歴とともに公開されていたりしなければ、どこが変更されているか正確に把握することは困難
-* やりたい事
-  * Webドキュメントの変更有無を検知したい
-  * Webドキュメントの変更点を把握したい
+
+### <mdi-bomb class="text-2xl text-red-400" /> 課題
+* SaaSサービスは日々更新されており、それに合わせて<span class="underline decoration-pink-500">ドキュメントも改版されている</span>
+* (ドキュメント関連のソースが変更履歴とともに公開されたりしていない限り)<br><span class="underline decoration-pink-500">どこが変更されているのかを正確に把握することは困難</span>
+
+### <mdi-bullseye-arrow class="text-2xl text-green-400" /> やりたい事
+* Webドキュメントの<span class="underline decoration-sky-500">変更有無を検知したい</span>
+* Webドキュメントの<span class="underline decoration-sky-500">変更点を把握したい</span>
+
+<style>
+h3 {
+  --uno: bg-slate-800 rounded shadow mb-1 py-1;
+}
+ul {
+  --uno: mb-5;
+}
+</style>
 
 ---
 src: ./pages/diff.md

@@ -1,40 +1,48 @@
 ---
+layout: image
+image: /tools_wraith-logo.png
+backgroundSize: 20em 50%
+---
+# <mdi-hammer-wrench/> Screen Diff Tool
+Candidates
+
+### [<mdi-github/> bbc/wraith: Wraith — A responsive screenshot comparison tool](https://github.com/bbc/wraith?tab=readme-ov-file)
+
+🇬🇧 英BBCのOSS
+<p><mdi-minus-circle class="text-pink-700" /> 最終コミットが5年前で開発停止中</p>
+<p><mdi-minus-circle class="text-pink-700" /> ドキュメントもDeadLink <mdi-skull-crossbones/></p>
+<p><mdi-minus-circle class="text-pink-700" /> 内部的に<b>ImageMagick</b>を使っているため環境構築が重そう</p>
+
+---
 layout: two-cols
 ---
-# Tools
 
-* [bbc/wraith: Wraith](https://github.com/bbc/wraith?tab=readme-ov-file)
-  * 英BBCのOSS
-    * > Wraith — A responsive screenshot comparison tool
-  * 最終コミットが5年前で開発停止中
-    * ドキュメントリンクも修正されていない
-    * (GitHub Organization名が変わっただけなので[URLを変えれば](https://bbc.github.io/wraith/configs.html)アクセスできるが)
-  * 内部的に**ImageMagickを使っている**ため環境構築が重そう
-    * 他にもImageMagickを使ったライブラリ多数
+# <mdi-hammer-wrench/> Screen Diff Tool
+Candidates
 
-::right::
+### [moshensky/pdf\-visual\-diff](https://github.com/moshensky/pdf-visual-diff)
+<div class="text-slate-500">Visual Regression Testing for PDFs in JavaScript</div>
 
-<div class="mt-10 ml-5">
-  <img src="/tools_wraith-logo.png">
+<div class="mt-3"><mdi-check-circle class="text-green-300" /> JSライブラリのみに依存</div>
+<dl>
+  <dt class="ml-6 text-sky-300"><a href="https://www.npmjs.com/package/pdfjs-dist">pdfjs-dist</a></dt>
+  <dd class="ml-10">PDF.js is a Portable Document Format (PDF) library that is built with HTML5.</dd>
+  <dt class="ml-6 text-sky-300"><a href="https://www.npmjs.com/package/jimp">jimp</a></dt>
+  <dd class="ml-10">JavaScript Image Manipulation Program</dd>
+  <dt class="ml-6 text-sky-300"><a href="https://www.npmjs.com/package/pixelmatch">pixelmatch</a></dt>
+  <dd class="ml-10">JavaScript pixel-level image comparison library</dd>
+</dl>
+
+<div class="mt-3">
+  <mdi-alert-box class="text-orange-500" /> <mdi-git /> <span class="underline decoration-pink-700">79 commits</span> | <mdi-github /><span class="underline decoration-pink-700"> 31 stars</span> | <mdi-account-group /> <span class="underline decoration-pink-700">4 contributors</span> <br>
+  <span class="ml-6 text-slate-500"> 個人プロジェクト?</span>
 </div>
+<div class="mt-1"><mdi-alert-box class="text-orange-500" /> WebページをPDF化する手段が必要</div>
 
----
-layout: two-cols
----
-
-# Tools
-
-* [moshensky/pdf\-visual\-diff](https://github.com/moshensky/pdf-visual-diff)
-  * JSのみに依存したPDF/Image比較ライブラリ
-    * [**jimp**](https://www.npmjs.com/package/jimp): JavaScript Image Manipulation Program
-    * [**pixelmatch**](https://www.npmjs.com/package/pixelmatch): JavaScript pixel-level image comparison library
-    * [**pdfjs\-dist**](https://www.npmjs.com/package/pdfjs-dist): PDF.js is a Portable Document Format (PDF) library that is built with HTML5. 
-  * 環境依存も少ない(ImageMagick不要)なため採用
-  * WebページをPDF化するのは別途考える
 
 ::right::
-<div class="mt-10 ml-5">
-  <img src="tools_pdf-visual-diff.png">
+<div class="mt-25 ml-5">
+  <img class="rounded shadow" src="tools_pdf-visual-diff.png">
 </div>
 
 ---
@@ -55,12 +63,11 @@ layout: two-cols
 layout: two-cols
 ---
 
-# Tools
+# <mdi-school-outline /> How to use
 [moshensky/pdf\-visual\-diff](https://github.com/moshensky/pdf-visual-diff)
 
-以下のいずれかの関数を使ってPDFを比較する
-* function: `comparePdfToSnapthot` <=
-* jest: `toMatchPdfSnapthot`
+関数 <b class="underline decoration-sky-500 text-pink-500">`comparePdfToSnapshot()`</b> か  
+Jest Matcher <span class="underline decoration-sky-500">`toMatchPdfSnapshot()`</span> を使う。
 
 ```js {all|2,6,8-12}
 // test/index.test.js
@@ -82,7 +89,7 @@ describe('test pdf diff', () => {
 
 ::right::
 
-<div class="mt-50 ml-3">
+<div class="mt-40 ml-3">
 
 ```js
 /**
@@ -108,12 +115,11 @@ type ComparePdfToSnapshot = (
 layout: two-cols
 ---
 
-# Tools
+# <mdi-school-outline /> How to use
 [moshensky/pdf\-visual\-diff](https://github.com/moshensky/pdf-visual-diff)
 
-以下のいずれかの関数を使ってPDFを比較する
-* function: `comparePdfToSnapthot`
-* jest: `toMatchPdfSnapthot`
+関数 <b class="underline decoration-sky-500 text-pink-500">`comparePdfToSnapshot()`</b> か  
+Jest Matcher <span class="underline decoration-sky-500">`toMatchPdfSnapshot()`</span> を使う。
 
 ```js {2,6,8-12}
 // test/index.test.js
@@ -135,11 +141,15 @@ describe('test pdf diff', () => {
 
 ::right::
 
-<div class="mt-50"></div>
+<div class="mt-23 ml-5">
+  <div v-click="1" class="bg-slate-900 font-mono text-sm">$ <span class="text-red-300">npm run test</span></div>
+  <div v-click="2" class="bg-slate-900 font-mono text-sm"><span class="text-slate-400">(update `testdata/sample.pdf`)</span></div>
+  <div v-click="2" class="bg-slate-900 font-mono text-sm">$ <span class="text-red-300">npm run test</span></div>
+</div>
 
 <div class="ml-5">
 
-```shell {8-9|2,5,8-9|2-5,8-9}
+```shell {8-9|2,5,8-9|2-5,8-9} {at:1}
 .
 ├── __snapshot__/              // create automatically
 │   ├── sample.pdf.diff.png    // - diff image (*)
@@ -175,13 +185,15 @@ describe('test pdf diff', () => {
 </div>
 
 ---
-layout: two-cols
+layout: two-cols-header
 ---
 
 # Tools
 [moshensky/pdf\-visual\-diff](https://github.com/moshensky/pdf-visual-diff)
 
 差分を確認した後、`pdf-visual-diff`コマンドを使って、差分の承認/破棄を実施する。
+
+::left::
 
 ```shell
 $ pdf-visual-diff --help
@@ -196,7 +208,7 @@ Options:
 
 ::right::
 
-<div class="mt-38 ml-3">
+<div class="ml-3">
 
 ```json
   ...
