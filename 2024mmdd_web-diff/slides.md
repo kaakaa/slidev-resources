@@ -2,7 +2,6 @@
 theme: seriph
 background: https://source.unsplash.com/collection/94734566/1920x1080
 class: text-center
-highlighter: shiki
 info: |
   ## 2024mmdd_web-diff
   Presentation slides for 2024mmdd_web-diff.
@@ -41,20 +40,22 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 # Motivation
 
-* Webドキュメントの変更を検知したい
-* Webドキュメントの変更点を把握したい
+* 課題
+  * SaaSサービスは日々更新されており、それに合わせてドキュメントも改版されている
+  * ドキュメント関連のソースが変更履歴とともに公開されていたりしなければ、どこが変更されているか正確に把握することは困難
+* やりたい事
+  * Webドキュメントの変更有無を検知したい
+  * Webドキュメントの変更点を把握したい
 
-# Tools
+---
+src: ./pages/diff.md
+---
 
-* [bbc/wraith: Wraith](https://github.com/bbc/wraith?tab=readme-ov-file)
-  * 英BBCのOSS
-  * 最終コミットが5年前で開発庭中。ドキュメントリンクも修正されていない。 ([こちら](https://bbc.github.io/wraith/configs.html)から見れる)
-  * ImageMagickを使うためヘヴィー
-* [moshensky/pdf\-visual\-diff: Visual Regression Testing for PDFs in JavaScript](https://github.com/moshensky/pdf-visual-diff)
-  * JSライブラリ([Jimp](https://www.npmjs.com/package/jimp),[pixelmatch](https://www.npmjs.com/package/pixelmatch))のみに依存したPDF/Image比較ライブラリ
-  * 環境依存も少ない(ImageMagick等が不要)なため採用
+---
+src: ./pages/web2pdf.md
+---
 
-# (pdf-visual-diff 説明)
+---
 
 コード
 ディレクトリtree
