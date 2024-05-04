@@ -49,13 +49,9 @@ Candidates
 
 ![alt text](/tools_example-diff.png)
 
----
-
-![alt text](/tools_example-diff.png)
-
 <div class="mt-10"/>
 
-<div class="flex justify-center">
+<div v-click="1" class="flex justify-center">
   <img class="w-1/2" src="/tools_example-diff-2.png">
 </div>
 
@@ -175,7 +171,7 @@ describe('test pdf diff', () => {
 
 ![alt text](/tools_example-diff.png)
 
-<div class="mt-10"/>
+<div class="mt-3"/>
 
 <div class="flex justify-center">
   <p class="w-1/2">

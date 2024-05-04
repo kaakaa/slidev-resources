@@ -68,30 +68,187 @@ src: ./pages/web2pdf.md
 ---
 
 ---
+layout: section
+---
 
-コード
-ディレクトリtree
+# 最終イメージ
 
-# WebページのPDF化
+Concept
 
-* PlayWrightを使用
-  * wait
-  * wait locator
-  * pdf size
-    * ImageよりもPDFの方がサイズが小さい (本当にそうか確認)
+---
+layout: two-cols
+---
 
-# 設定のYAML化
+# 最終イメージ
+Concept
 
-* 独自形式の説明
-* 最初はJSONで書いていたが、コメントが書けないのが気に入らなくてYAMLに
+<ol>
+  <li><code>config.yml</code>に取得対象のページ情報を記述</li>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20">WebページをPDF形式で取得</li>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20"><code>pdf-visual-diff</code>でsnapshot(.png)と比較</li>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20">snapshotとのdiffの確認</li>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20">snapshotの更新</li>
+</ol>
 
-# 運用
+::right::
 
-* 手動実行しているコマンド・目視チェック
-  * サイドバーメニューの変更があると辛いので、PDF取得時にmaskを設定
-* 実行後のDirectory構造
-  * PDFを記録として保存している (画像よりもPDFの方がサイズが小さい)
+<div class="mt-10"/>
 
-# 自動実行
-* CI自動実行で通知飛ばすところまではできる
-  * どこのチャットに飛ばすのが妥当か決めきれなかったので
+```shell {4}
+.
+├── pdf/
+├── __snapshot__/
+├── config.yml
+├── diff.ts
+├── fetch.ts
+├── package-lock.json
+└── package.json
+```
+
+<div class="mt-10"/>
+
+```yaml
+targets:
+  - url: https://....
+    title: "portal-page1"
+  - url: https://....
+    locator: "#zDocsContent"
+    title: "portal-page2" # 出力ファイル名
+  - url: https://....
+    masks:
+      - "ul.sitemap"   # マスク指定　(後述)
+  ...
+```
+
+
+---
+layout: two-cols
+---
+
+# 最終イメージ
+Concept
+
+<ol>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20"><code>config.yml</code>に取得対象のページ情報を記述</li>
+  <li>WebページをPDF形式で取得</li>
+  <li style="list-style:none"><ul><li>e.g.:<code>npm run fetch</code></li></ul></li>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20"><code>pdf-visual-diff</code>でsnapshot(.png)と比較</li>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20">snapshotとのdiffの確認</li>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20"><code>pdf-visual-diff</code>コマンドでsnapshotの更新</li>
+</ol>
+
+::right::
+
+<div class="mt-10"/>
+
+```shell {2-5,9,11}
+.
+├── pdf/
+│   ├── portal-page1.pdf
+│   ├── ...
+│   └── portal-pageN.pdf
+├── __snapshot__/
+├── config.yml
+├── diff.ts
+├── fetch.ts
+├── package-lock.json
+└── package.json
+```
+
+---
+layout: two-cols
+---
+
+# 最終イメージ
+Concept
+
+<ol>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20"><code>config.yml</code>に取得対象のページ情報を記述</li>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20">WebページをPDF形式で取得</li>
+  <li><code>pdf-visual-diff</code>でsnapshot(.png)と比較</li>
+  <li>snapshotとのdiffの確認</li>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20"><code>pdf-visual-diff</code>コマンドでsnapshotの更新</li>
+</ol>
+
+::right::
+
+<div class="mt-10"/>
+
+```shell {3,6-9,12,15}
+.
+├── pdf/
+│   ├── portal-page1.pdf
+│   ├── ...
+│   └── portal-pageN.pdf
+├── __snapshot__/
+│   ├── portal-page1.pdf.diff.png
+│   ├── portal-page1.pdf.new.png
+│   ├── portal-page1.pdf.png
+│   └── ...
+├── config.yml
+├── diff.ts
+├── fetch.ts
+├── package-lock.json
+└── package.json
+```
+
+---
+layout: two-cols
+---
+
+# 最終イメージ
+Concept
+
+<ol>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20"><code>config.yml</code>に取得対象のページ情報を記述</li>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20">WebページをPDF形式で取得</li>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20"><code>pdf-visual-diff</code>でsnapshot(.png)と比較</li>
+  <li class="text-black dark:text-white text-opacity-20 dark:text-opacity-20">snapshotとのdiffの確認</li>
+  <li><code>pdf-visual-diff</code>コマンドでsnapshotの更新</li>
+</ol>
+
+::right::
+
+<div class="mt-10"/>
+
+```shell {6-7,13}
+.
+├── pdf/
+│   ├── portal-page1.pdf
+│   ├── ...
+│   └── portal-pageN.pdf
+├── __snapshot__/
+│   ├── portal-page1.pdf.png
+│   └── ...
+├── config.yml
+├── diff.ts
+├── fetch.ts
+├── package-lock.json
+└── package.json
+```
+
+---
+layout: section
+---
+
+# おわりに
+
+---
+
+# 課題
+
+* 画面上部にセクション追加などがあると、それ以降の部分が変更箇所としてすべて検出されていまう
+* `networkidle`を待機しても画像の読み込みがされる場合とされない場合等がある (原因不明)
+* CI等で定期的に回す場合、変更内容を確認しようとすると多くのsnapshot(.png)を保存する必要があるため、容量を食う
+  * 変更有無の検知だけで回すぐらいなら気にならないと思うが
+
+---
+
+# Wrap Up
+* `pdf-visual-diff`と`Playwright`等を使用することで、JSスタックのみでWebページの変更/差分検知ができる
+* WebページのPDF化は、コンテンツの状態(load state, css media)を気にする必要がある
+* Webページの更新検知をする場合、差分をどう取るかが重要 (サイドバー、画面上部の追加)
+
+# まとめ
+* Webページの監視は確認作業が辛い
+* コンテンツの変更点はGit等でDiffとして確認できる形式になっているのが好ましい
