@@ -11,6 +11,10 @@ title: 2024mmdd_web-diff
 mdc: true
 githubPages:
   ogp: true
+addons:
+  - slidev-addon-rabbit
+rabbit:
+  slideNum: true
 ---
 
 # Web Page Diff
