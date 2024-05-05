@@ -42,7 +42,7 @@ Candidates
 
 ::right::
 <div class="mt-25 ml-5">
-  <img class="rounded shadow" src="tools_pdf-visual-diff.png">
+  <img class="rounded shadow" src="/tools_pdf-visual-diff.png">
 </div>
 
 ---
