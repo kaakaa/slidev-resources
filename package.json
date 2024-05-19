@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@iconify-json/emojione-monotone": "^1.1.4",
+    "@iconify-json/mdi": "^1.1.50",
     "playwright-chromium": "^1.33.0",
     "scaffdog": "^3.0.0"
   },
