@@ -96,9 +96,7 @@ layout: two-cols
 <div class="mt-15px"/>
 
 <h3>HTMLも書けて</h3>
-<div class="c-orange animate-bounce">
-  UnoCSSでスタイルも指定できる
-</div>
+<div class="c-orange animate-bounce">UnoCSSでスタイルも指定できる</div>
 
 <div class="mt-35px"/>
 
@@ -137,9 +135,7 @@ layout: two-cols
 * 書けて
 
 <h3>HTMLも書けて</h3>
-<div class="c-orange animate-bounce">
-  UnoCSSでスタイルも指定できる
-</div>
+<div class="c-orange animate-bounce">UnoCSSでスタイルも指定できる</div>
 
 <mdi-lightbulb class="c-yellow"/> Syntax Highlightも高機能
 
@@ -147,6 +143,7 @@ layout: two-cols
 console.log(`Writable highlight by Monaco`)
 ``'
 
+<!-- since v0.48.0 -->
 ``'`md magic-move
 ``'js
 const str = JSON.stringify(json)
@@ -180,7 +177,7 @@ sequenceDiagram
   Note over Alice,John: A typical interaction
 ```
 
-#### Draggable Object
+#### Draggable Object (since v0.49.0)
 <img v-drag="'logo'" src="https://sli.dev/logo.png">
 
 ::right::
@@ -205,7 +202,7 @@ sequenceDiagram
   Note over Alice,John: A typical interaction
 ``'
 
-#### Draggable Object
+#### Draggable Object (since v0.49.0)
 <img v-drag="'logo'" src="https://sli.dev/logo.png">
 
 ```

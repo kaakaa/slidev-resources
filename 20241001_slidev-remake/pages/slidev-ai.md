@@ -44,14 +44,14 @@ _<logos-github-octocat/>[kaakaa/slidaiv](https://github.com/kaakaa/slidaiv) | <l
 * VS Code上でSlidevの原稿を生成できるVS Code拡張
 * プロンプトはFrontmatterで指定<br/><span class="text-sm">([@slidev/parser](https://www.npmjs.com/package/@slidev/parser)で原稿を解析してモデル化して取得)</span>
 * SlidevのVS Code拡張を併用すれば、生成した原稿の表示内容をすぐに確認できる
-* 現在は1ページごとの生成<br/><span class="text-sm">(たまに複数ページ分生成されてしまうが...)</span>
+* YAMLに複数ページ分のPromptを書いて一気に原稿を出力するCLIツール [slidaiv - npm](https://www.npmjs.com/package/slidaiv)
 
 <div class="mt-5 text-sm c-gray">
 
-* 調査資料を元に生成できるようにしたい
-* 生成された原稿を元にして改善していけるようにしたい
+* 調査資料を元に生成できるようにしたい。RAGりたい。
+* 原稿の改善もAIでやれるようにしたい
 * 画像生成AIの組み込みやUnoCSSを使ったデザイン等もしたい
-* YAMLなどに複数ページ分のプロンプトを定義して、<br/>一気に全体を生成できるようにしたい
+* あんま良い感じの原稿が生成されないのでなんとかしたい...
 
 </div>
 
@@ -178,7 +178,7 @@ slidaiv:
 
 ---
 
-# <logos-visual-studio-code/> Development/Publish VS Code Extension
+# <logos-visual-studio-code/> Develop / Publish VS Code Extension
 
 * 公式ドキュメントとサンプル集で大体のことはできる (未だに[Yeoman](https://yeoman.io/)を使ってるのが謎)
   * [Your First Extension \| Visual Studio Code Extension API](https://code.visualstudio.com/api/get-started/your-first-extension)
@@ -186,6 +186,30 @@ slidaiv:
 * Marketplaceへのリリースも公式ドキュメント通りにやれば良い ([Publishing Extensions](https://code.visualstudio.com/api/working-with-extensions/publishing-extension))
   * Azure DevOpsのPATを元にVisual Studio MarketplaceのPublisherを作成する必要がある
   * 公式CLIツール [`vsce`](https://github.com/microsoft/vscode-vsce)を使うことでGitHub Actionsなどからリリースを実行することもできる
-    * [Support pnpm · Issue \#421 · microsoft/vscode\-vsce](https://github.com/microsoft/vscode-vsce/issues/421)
   * 管理画面からExtensionの閲覧数やインストール数が見れる
     <img src="/slidaiv_vsce-manage.png" class="h-40"/>
+
+---
+layout: two-cols
+---
+
+# TODO
+
+### <span class="underline">Model/Promptの改善</span>
+
+GitHub Models (AIアプリ開発用途で商用AIサービスをお試しできるサービス。実行回数制限あり。) 使って、適切なModel/Prompt等を調査していきたい。
+
+### <span class="underline">RAG等の導入</span>
+
+調査資料をどこかのディレクトリに放り込んでおくと、それを読み込んで良い感じの生成ができるようになるとか。  
+VS Code Extensionからも呼べるローカルで動くRAGとは...。どこかのサービスを呼び出す感じにしなきゃだめかなぁ...。
+
+::right::
+
+<div class="ml-5">
+
+![alt text](/slidaiv_github-models.png)
+
+![alt text](/slidaiv_compare.png)
+
+</div>
