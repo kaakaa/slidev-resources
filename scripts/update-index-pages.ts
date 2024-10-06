@@ -40,7 +40,14 @@ const entries = slidePaths
 /* update index.html */
 let indexHtml = readFileSync('scripts/templates/tmpl_index.html', 'utf8');
 const template = Handlebars.compile(indexHtml)
-writeFileSync(`${dir}/index.html`, template({entries}), 'utf-8');
+writeFileSync(
+    `${dir}/index.html`,
+    template({
+        entries,
+        'analyticsId': 'G-Q2M0L76QSW', // FIXME: parameterize
+    }),
+    'utf-8'
+);
 
 /* copy 404.png */
 copyFileSync('scripts/templates/404.png', `${dir}/404.png`);
