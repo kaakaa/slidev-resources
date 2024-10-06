@@ -12,13 +12,14 @@ url: https://sli.dev/
 # <logos-slidev/> Slidevとは
 
 * Markdownからスライド資料を作成できる<br>Dev向けプレゼンテーションフレームワーク
-* 3年前ぐらいに日本でも話題に
+* 2021年ぐらい?に日本でも話題に
   * <span class="text-xs">[Slidevを導入してMarkdownで美しいスライドを書こう \- Qiita](https://qiita.com/loftkun/items/2fbeddc9449eb5d85dfd)</span>
   * <span class="text-xs">[Hackableなスライド作成ツールSlidevで遊ぶ](https://zenn.dev/hiroko_ino/articles/hackable-slidev-play-lt)</span>
 * 作者はNuxtLabs社の[Anthony Fu](https://antfu.me/)氏
-  * <span class="text-xs">最近人気のvitesの作者でもある</span>
+  * <span class="text-xs">最近人気の[Vitest](https://github.com/vitest-dev/vitest)の作者でもある</span>
 
 <img src="/state-of-js_vitest.png" style="marginLeft: 15px; height:35%"/>
+<p class="text-xs text-right c-gray"><a href="https://2023.stateofjs.com/en-US/libraries/#tier_list">ref: State of JavaScript 2023: Libraries</a></p>
 
 ---
 layout: two-cols
@@ -104,8 +105,8 @@ layout: two-cols
 
 <div class="mt-10px"/>
 
-```js {monaco}
-console.log(`Writable highlight by Monaco`)
+```js {monaco-run} {autorun:false}
+console.log(`Writable/runnable highlight by Monaco`)
 ```
 
 <div class="mt-30px"/>
@@ -139,8 +140,8 @@ layout: two-cols
 
 <mdi-lightbulb class="c-yellow"/> Syntax Highlightも高機能
 
-``'js {monaco}
-console.log(`Writable highlight by Monaco`)
+``'js {monaco-run} {autorun:false}
+console.log(`Writable/runnable highlight by Monaco`)
 ``'
 
 <!-- since v0.48.0 -->

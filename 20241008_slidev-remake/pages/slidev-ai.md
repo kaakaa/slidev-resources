@@ -68,7 +68,7 @@ _<logos-github-octocat/>[kaakaa/slidaiv](https://github.com/kaakaa/slidaiv) | <l
 # Slid<span class="c-pink">ai</span>v
 _<logos-github-octocat/>[kaakaa/slidaiv](https://github.com/kaakaa/slidaiv) | <logos-visual-studio-code/> [Slidaiv](https://marketplace.visualstudio.com/items?itemName=kaakaa.slidaiv)
 
-2ページ前のスライドは以下のプロンプトを元に **Ollama x Command-R Plus** で生成
+2ページ前のスライドは以下のプロンプト (+ System Prompt) qを元に **Ollama x Command-R Plus** で生成
 
 ```yaml
 ---

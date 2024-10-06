@@ -1,7 +1,7 @@
 ---
 title: How to manage Slidev assets (REMAKE)
 theme: seriph
-background: https://source.unsplash.com/collection/94734566/1920x1080
+background: https://cover.sli.dev
 class: 'text-center'
 highlighter: shiki
 info: |
@@ -33,11 +33,12 @@ addons:
 
 # はじめに
 
-* ここ数年、仕事以外の趣味の発表資料作成はSlidevを使っている
-* 使い続ける中で原稿の管理方法とか試行錯誤してるので、その棚卸し
-  * Slidevとウサギとカメと
-  * SlidevとGitHubと
-  * SlidevとAIと
+* ここ数年、仕事以外の趣味の発表資料作成は **Slidev** を使っている
+* 使い続ける中で原稿の管理方法とか試行錯誤してるので、それらの棚卸し
+  * <logos-slidev/><span class="c-cyan">Slidev</span> ?
+  * <logos-slidev/><span class="c-cyan">Slidev</span> と<span class="c-pink"><mdi-rabbit/>ウサギ</span> と <span class="c-green"><mdi-tortoise/>カメ</span> と
+  * <logos-slidev/><span class="c-cyan">Slidev</span> と <logos-github-octocat/>GitHubと
+  * <logos-slidev/><span class="c-cyan">Slidev</span> と <span class="c-pink animate-pulse"><mdi-brain/>AI</span> と
 
 ---
 src: ./pages/slidev.md

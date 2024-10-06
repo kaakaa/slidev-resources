@@ -17,13 +17,14 @@ layout: two-cols
 ---
 
 # 現在のリポジトリ構成
+ディレクトリごとに資産 (*.md, *.pngなど) を格納
 
 ## Directory Structure
+* <span class="text-orange-500">slides.md</span>: メインのスライド (※ファイル名固定)
 * <span class="text-orange-500">pages/</span>: 分割したスライドページ
 * <span class="text-orange-500">public/</span>: 画像などのアセットファイル
-* <span class="text-orange-500">slides.md</span>: メインのスライド (※ファイル名固定)
 
-## npmコマンド
+## Build
 
 ```bash
 # devコマンドははエントリとなるMarkdownファイルを指定
@@ -43,14 +44,14 @@ $ npm run export --slide=20230601_slidev
 ├── 20230202_supply-chain/
 ├── 20230406_sidejob/
 <span class="c-white">├── <span class="text-orange-500">20230601_slidev/</span>
+│   ├── <span class="text-orange-500">slides.md</span>
 │   ├── <span class="text-orange-500">pages/</span>
 │   │   ├── slidev-github.md
 │   │   ├── slidev-rabbit.md
 │   │   └── slidev.md
-│   ├── <span class="text-orange-500">public/</span>
-│   │   ├── sample-image.png
-│   │   └── logo.png
-│   └── <span class="text-orange-500">slides.md</span>
+│   └── <span class="text-orange-500">public/</span>
+│       ├── sample-image.png
+│       └── logo.png
 </span>├── README.md
 ├── package-lock.json
 └── package.json
