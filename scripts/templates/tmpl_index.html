@@ -50,7 +50,17 @@
 </head>
 <body>
     <div class="slides">
-{{ entries }}
+        {{#each entries}}
+        <div class="slide">
+            <a href="./{{this.name}}">
+                <img src="./{{this.name}}/preview.png" onerror="this.onerror=null; this.src='./404.png';">
+                <div>
+                    <h3>{{this.name}}</h3>
+                </div>
+            </a>
+            <div>published at: {{this.date}}</div>
+        </div>`
+        {{/each}}
     </div>
 </body>
 </html>
