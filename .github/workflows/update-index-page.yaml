@@ -1,6 +1,7 @@
 name: Update index page
 on:
   workflow_call:
+  workflow_dispatch:
 
 jobs:
   update:
@@ -8,7 +9,6 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
     - uses: actions/checkout@v4
       with:
         ref: gh-pages
@@ -20,7 +20,7 @@ jobs:
     - name: Create index page
       run: |
         npm ci
-        npm run update-index-page --pagesdir=gh-pages/
+        npm run update-index-page --pagesdir=gh-pages/ 
     - name: Deploy pages
       uses: crazy-max/ghaction-github-pages@v4
       with:

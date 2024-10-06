@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+    {{#if analyticsId}}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{analyticsId}}"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{analyticsId}}');
+    </script>
+    {{/if}}
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slides Index</title>
@@ -50,7 +61,17 @@
 </head>
 <body>
     <div class="slides">
-{{ entries }}
+        {{#each entries}}
+        <div class="slide">
+            <a href="./{{this.name}}">
+                <img src="./{{this.name}}/preview.png" onerror="this.onerror=null; this.src='./404.png';">
+                <div>
+                    <h3>{{this.name}}</h3>
+                </div>
+            </a>
+            <div>published at: {{this.date}}</div>
+        </div>`
+        {{/each}}
     </div>
 </body>
 </html>
