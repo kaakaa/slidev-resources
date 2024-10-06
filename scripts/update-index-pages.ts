@@ -44,7 +44,7 @@ const sorted = slidePaths
                     <h3>${name}</h3>
                 </div>
             </a>
-            <div>last committed: ${date}</div>
+            <div>published at: ${date}</div>
         </div>`
     });
 
