@@ -2,7 +2,7 @@ import {copyFileSync, readFileSync, writeFileSync} from 'fs';
 import {execSync} from 'child_process';
 import {globSync} from 'glob';
 
-// ts-node scripts/update-index-pages.ts [gh-pages.dir]
+// tsx scripts/update-index-pages.ts [gh-pages.dir]
 const args = process.argv.slice(2);
 let dir = args[0] || 'gh-pages/';
 dir[dir.length - 1] === '/' ? dir : dir + '/';
