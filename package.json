@@ -19,7 +19,7 @@
     "@slidev/theme-default": "*",
     "@slidev/theme-seriph": "*",
     "gray-matter": "^4.0.3",
-    "pdf-img-convert": "^1.2.1",
+    "pdf-img-convert": "^2.0.0",
     "slidev-addon-rabbit": "^0.3.0",
     "slidev-theme-penguin": "^2.2.0",
     "vite-svg-loader": "^5.1.0"
