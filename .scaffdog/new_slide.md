@@ -10,18 +10,22 @@ questions:
 
 ```md
 ---
-theme: seriph
-background: https://source.unsplash.com/collection/94734566/1920x1080
-class: text-center
-highlighter: shiki
+title: {{ inputs.name }}
 info: |
   ## {{ inputs.name }}
   Presentation slides for {{ inputs.name }}.
+theme: seriph
+background: https://cover.sli.dev
+class: text-center
+highlighter: shiki
 transition: slide-left
-title: {{ inputs.name }}
 mdc: true
 githubPages:
   ogp: true
+addons:
+  - slidev-addon-rabbit
+rabbit:
+  slidevNum: true
 ---
 
 # Welcome to Slidev
