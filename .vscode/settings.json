@@ -2,5 +2,6 @@
     "markdown.copyFiles.destination": {
         "*/pages/*": "../public/",
         "*": "./public/"
-    }
+    },
+    "slidev.port": 3030
 }
