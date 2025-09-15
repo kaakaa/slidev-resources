@@ -14,8 +14,10 @@
   },
   "dependencies": {
     "@slidev/cli": "^51.1.1",
+    "@slidev/theme-bricks": "^0.25.0",
     "@slidev/theme-default": "*",
     "@slidev/theme-seriph": "*",
+    "@slidev/theme-shibainu": "^0.25.0",
     "gray-matter": "^4.0.3",
     "pdf-img-convert": "^2.0.0",
     "slidev-addon-rabbit": "^0.3.0",
