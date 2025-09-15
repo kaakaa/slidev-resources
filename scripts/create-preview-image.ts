@@ -1,5 +1,5 @@
 import fs from 'fs';
-import pdf2img from 'pdf-img-convert';
+import * as pdf2img from 'pdf-img-convert';
 
 const pdf = process.argv[2];
 const dest = process.argv[3];
