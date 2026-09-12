@@ -40,5 +40,6 @@ jobs:
           build_dir: ./gh-pages
           verbose: true
           commit_message: "Update index page"
+          jekyll: false # release.yaml と同じ理由 (.nojekyll が必要)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

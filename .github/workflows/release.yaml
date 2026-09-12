@@ -99,5 +99,9 @@ jobs:
           keep_history: true
           build_dir: ./gh-pages
           verbose: true
+          # .nojekyll を置かせる。Jekyll が有効だとアンダースコア始まりの
+          # ファイルが配信されず、Slidev が出力する
+          # assets/_plugin-vue_export-helper-*.js が 404 になる
+          jekyll: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
