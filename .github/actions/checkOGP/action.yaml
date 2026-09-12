@@ -13,12 +13,12 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: setup yq
-      shell: bash
-      run: |
-        wget https://github.com/mikefarah/yq/releases/download/v4.34.1/yq_linux_amd64 -O ./yq
-        chmod +x ./yq
+    # yq は ubuntu ランナーに同梱されている (ubuntu-24.04 で v4.53.6) ため
+    # 都度ダウンロードしない
     - name: Frontmatter
       id: frontmatter
       shell: bash
-      run: echo "ogp=`./yq --front-matter=extract '.githubPages.ogp' ${{ inputs.file }} | tr -d '\n'`" >> $GITHUB_OUTPUT
+      env:
+        FILE: ${{ inputs.file }}
+      run: |
+        echo "ogp=$(yq --front-matter=extract '.githubPages.ogp' "$FILE" | tr -d '\n')" >> "$GITHUB_OUTPUT"

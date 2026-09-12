@@ -1,7 +1,11 @@
 name: Update index page
+
+# 通常のリリースでは release.yaml が index の更新まで行う。
+# このワークフローは index だけを作り直したいときの手動用。
 on:
-  workflow_call:
   workflow_dispatch:
+
+concurrency: release-slidev
 
 jobs:
   update:
@@ -9,25 +13,31 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4 # need to checkout main branch to run script
-    - uses: actions/checkout@v4
-      with:
-        ref: gh-pages
-        path: gh-pages
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-        cache: "npm"
-    - name: Create index page
-      run: |
-        npm ci
-        npm run update-index-page --pagesdir=gh-pages/ 
-    - name: Deploy pages
-      uses: crazy-max/ghaction-github-pages@v4
-      with:
-        keep_history: true
-        build_dir: ./gh-pages
-        verbose: true
-        commit_message: "Update index page"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v7 # need to checkout main branch to run script
+
+      # 各スライドの日付を gh-pages の commit 履歴から引くため全履歴が必要
+      - uses: actions/checkout@v7
+        with:
+          ref: gh-pages
+          path: gh-pages
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Create index page
+        run: npm run update-index-page --pagesdir=gh-pages/
+
+      - name: Deploy pages
+        uses: crazy-max/ghaction-github-pages@v5
+        with:
+          keep_history: true
+          build_dir: ./gh-pages
+          verbose: true
+          commit_message: "Update index page"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,12 +1,13 @@
 name: Release slidev
 on:
   push:
-    branches-ignore:
-      - "*"
     tags:
       - "*"
 
 concurrency: release-slidev
+
+env:
+  SLIDE: ${{ github.ref_name }}
 
 jobs:
   release:
@@ -15,53 +16,84 @@ jobs:
       pages: read
     runs-on: ubuntu-latest
     steps:
-      - name: Install Japanese font            # Insert these 2 lines
-        run: sudo apt install -y fonts-noto    #     to install Japanese font
-      - name: Setup Pages
-        id: configure-pages
-        uses: actions/configure-pages@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           submodules: true
-      - uses: actions/setup-node@v4
+
+      # タグ名をそのままスライドのディレクトリ名として使うので、先に存在を確認する。
+      # (打ち間違えたタグで npm ci まで走ってから失敗するのを防ぐ)
+      - name: Validate that the tag matches a slide directory
+        run: |
+          if [ ! -f "${SLIDE}/slides.md" ]; then
+            echo "::error::Tag '${SLIDE}' does not match a slide directory. Expected '${SLIDE}/slides.md' to exist."
+            exit 1
+          fi
+
+      - name: Install Japanese font
+        run: sudo apt-get install -y fonts-noto
+
+      - name: Setup Pages
+        id: configure-pages
+        uses: actions/configure-pages@v6
         with:
-          node-version: 20
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # index.html の各スライドの日付は gh-pages の commit 履歴から引くため、
+      # 全履歴が必要 (shallow だと全件が同じ日付になる)
+      - uses: actions/checkout@v7
+        with:
+          ref: gh-pages
+          path: gh-pages
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
           cache: "npm"
+
       - run: npm ci
+
       - name: Export slidev as PDF
-        run: npm run export --slide=${GITHUB_REF##*/} && npm run export:dark --slide=${GITHUB_REF##*/}
-      - uses: softprops/action-gh-release@v2
+        run: npm run export --slide="${SLIDE}" && npm run export:dark --slide="${SLIDE}"
+
+      - uses: softprops/action-gh-release@v3
         with:
           files: |
             dist/*.pdf
+
       - name: Check if OGP is enabled
         id: checkOGP
         uses: ./.github/actions/checkOGP
         with:
-          file: ${GITHUB_REF##*/}/slides.md
+          file: ${{ env.SLIDE }}/slides.md
+
       - name: Generate index.html before building SPA
         if: ${{ steps.checkOGP.outputs.ogp == 'true' }}
-        run: |
-          npm run build:before --slide=${GITHUB_REF##*/} --pagesurl=${{ steps.configure-pages.outputs.base_url }}
+        run: npm run build:before --slide="${SLIDE}" --pagesurl=${{ steps.configure-pages.outputs.base_url }}
+
       - name: Build slidev as SPA
-        run: npm run build --slide=${GITHUB_REF##*/}
+        run: npm run build --slide="${SLIDE}"
+
       - name: Generate preview image for OGP
         if: ${{ steps.checkOGP.outputs.ogp == 'true' }}
+        run: npm run build:after --slide="${SLIDE}"
+
+      # ビルド成果物を gh-pages の作業ツリーへ取り込み、index を作り直してから
+      # 1度だけ deploy する (以前は SPA と index で2回 push しており、
+      # pages-build-deployment も2回走っていた)
+      - name: Merge built slide into gh-pages tree
         run: |
-          npm run build:after --slide=${GITHUB_REF##*/}
+          mkdir -p "gh-pages/${SLIDE}"
+          cp -r "docs/${SLIDE}/." "gh-pages/${SLIDE}/"
+
+      - name: Update index page
+        run: npm run update-index-page --pagesdir=gh-pages/
+
       - name: Deploy pages
-        uses: crazy-max/ghaction-github-pages@v4
+        uses: crazy-max/ghaction-github-pages@v5
         with:
           keep_history: true
-          build_dir: docs
+          build_dir: ./gh-pages
           verbose: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  update:
-    needs: release
-    permissions:
-      contents: write
-    uses: ./.github/workflows/update-index-page.yaml
-    secrets: inherit
