@@ -13,7 +13,9 @@
     "update-index-page": "tsx scripts/update-index-pages.ts ${npm_config_pagesdir}"
   },
   "dependencies": {
-    "@slidev/cli": "^51.1.1",
+    "@comark/markdown-it": "^0.3.4",
+    "@iconify-json/uil": "^1.2.3",
+    "@slidev/cli": "^52.19.0",
     "@slidev/theme-bricks": "^0.25.0",
     "@slidev/theme-default": "*",
     "@slidev/theme-seriph": "*",
