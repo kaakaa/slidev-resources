@@ -22,9 +22,10 @@ jobs:
           path: gh-pages
           fetch-depth: 0
 
+      # release.yaml と同じ理由で 20 固定 (canvas@2.11.2 が Node 22 非対応)
       - uses: actions/setup-node@v7
         with:
-          node-version-file: .nvmrc
+          node-version: 20
           cache: "npm"
 
       - run: npm ci

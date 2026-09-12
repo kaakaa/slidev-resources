@@ -46,9 +46,13 @@ jobs:
           path: gh-pages
           fetch-depth: 0
 
+      # .nvmrc は 22 だが、ここでは 20 に固定する。
+      # pdf-img-convert -> canvas@2.11.2 に Node 22 (ABI node-v127) 用の
+      # ビルド済みバイナリが無く、ソースビルドに落ちて pixman-1 が無いと失敗するため。
+      # canvas が Node 22 に対応したら .nvmrc に揃える。
       - uses: actions/setup-node@v7
         with:
-          node-version-file: .nvmrc
+          node-version: 20
           cache: "npm"
 
       - run: npm ci
