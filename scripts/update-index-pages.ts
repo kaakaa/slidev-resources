@@ -39,7 +39,9 @@ const entries = slidePaths
             /* not tracked yet */
         }
         const iso = gitDate || new Date().toISOString();
-        const ret = { path, name, date: iso.split('T')[0], dateObj: new Date(iso)};
+        // 'YYYYMMDD_foo-bar' -> 'foo bar' (日付は date として別に出すため落とす)
+        const title = name.replace(/^\d{8}[_-]/, '').replace(/[-_]/g, ' ');
+        const ret = { path, name, title, date: iso.split('T')[0], dateObj: new Date(iso)};
         console.log(ret); // debug
         return ret;
     })
