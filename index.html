@@ -12,170 +12,453 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slides Index</title>
+    <title>Slides | kaakaa</title>
+    <meta name="description" content="kaakaa が Slidev で作成したスライドの一覧">
     <style>
-        html {
-            --s: 100px; /* control the size */
-            --_g: #0000 90deg,#9c93 0;
-            background:
-                conic-gradient(from 90deg at 2px 2px,var(--_g)),
-                conic-gradient(from 90deg at 1px 1px,var(--_g));
-                background-size: var(--s) var(--s), calc(var(--s)/5) calc(var(--s)/5);
+        :root {
+            color-scheme: light dark;
+            --bg: #fbfbfd;
+            --bg-grid: #0000000a;
+            --card: #ffffff;
+            --card-border: #e6e6ec;
+            --fg: #16161a;
+            --fg-muted: #6b6b78;
+            --fg-faint: #9a9aa8;
+            --accent: #3b6cf0;
+            --shadow: 0 1px 2px rgba(16, 16, 32, .04), 0 4px 16px rgba(16, 16, 32, .06);
+            --shadow-hover: 0 2px 4px rgba(16, 16, 32, .06), 0 12px 32px rgba(16, 16, 32, .12);
+            --radius: 14px;
         }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0e0e11;
+                --bg-grid: #ffffff0a;
+                --card: #17171c;
+                --card-border: #2a2a33;
+                --fg: #ececf1;
+                --fg-muted: #a0a0ae;
+                --fg-faint: #6e6e7c;
+                --accent: #7fa0ff;
+                --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+                --shadow-hover: 0 2px 4px rgba(0, 0, 0, .35), 0 12px 32px rgba(0, 0, 0, .45);
+            }
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0 24px 96px;
+            font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+                         "Helvetica Neue", "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
+            color: var(--fg);
+            background-color: var(--bg);
+            background-image:
+                linear-gradient(var(--bg-grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+            background-size: 56px 56px, 56px 56px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrap { max-width: 1200px; margin: 0 auto; }
+
+        header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px 16px;
+            padding: 64px 4px 40px;
+        }
+        h1 {
+            margin: 0;
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 700;
+            letter-spacing: -.02em;
+        }
+        .count {
+            font-size: 13px;
+            font-variant-numeric: tabular-nums;
+            color: var(--fg-muted);
+            padding: 3px 10px;
+            border: 1px solid var(--card-border);
+            border-radius: 999px;
+            background: var(--card);
+        }
+        .repo {
+            margin-left: auto;
+            font-size: 13px;
+            color: var(--fg-muted);
+            text-decoration: none;
+        }
+        .repo:hover { color: var(--accent); }
+
+        .slides {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 24px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
         .slide {
-            margin: 1em;
-            padding: 1em;
-            background-color: #ccc5;
-            border: solid 1px #999;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
         }
         .slide:hover {
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: color-mix(in srgb, var(--accent) 35%, var(--card-border));
         }
-        .slide:active {
-            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-            transform: translateY(2px);
+        .slide:has(a:focus-visible) {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
         }
-        .slide img {
+
+        .slide > a {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+        .slide > a:focus-visible { outline: none; }
+
+        .thumb {
+            display: block;
             width: 100%;
-            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: color-mix(in srgb, var(--fg) 6%, transparent);
+            border-bottom: 1px solid var(--card-border);
         }
-        @media (min-width: 600px) {
-            .slides {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: start;
-            }
-            .slide {
-                flex: 0 0 calc(29% - 2em);
-            }
+
+        .body { padding: 16px 18px 18px; }
+
+        .title {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 650;
+            line-height: 1.35;
+            letter-spacing: -.01em;
+            text-transform: capitalize;
         }
-        @media (min-width: 900px) {
-            .slide {
-                flex: 0 0 calc(29% - 2em);
-            }
+        .slide:hover .title { color: var(--accent); }
+
+        .slug {
+            margin-top: 6px;
+            font-size: 12px;
+            font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+            color: var(--fg-faint);
+            word-break: break-all;
+        }
+
+        .meta {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--fg-muted);
+            font-variant-numeric: tabular-nums;
+        }
+        .meta svg { width: 13px; height: 13px; flex: none; opacity: .7; }
+
+        footer {
+            max-width: 1200px;
+            margin: 64px auto 0;
+            padding: 24px 4px 0;
+            border-top: 1px solid var(--card-border);
+            font-size: 12px;
+            color: var(--fg-faint);
+        }
+        footer a { color: var(--fg-muted); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .slide { transition: none; }
+            .slide:hover { transform: none; }
         }
     </style>
 </head>
 <body>
-    <div class="slides">
-        <div class="slide">
-            <a href="./20260915_agent_packages">
-                <img src="./20260915_agent_packages/preview.png" onerror="this.onerror=null; this.src='./404.png';">
-                <div>
-                    <h3>20260915_agent_packages</h3>
-                </div>
-            </a>
-            <div>published at: 2026-09-12</div>
-        </div>`
-        <div class="slide">
-            <a href="./20260310_entire">
-                <img src="./20260310_entire/preview.png" onerror="this.onerror=null; this.src='./404.png';">
-                <div>
-                    <h3>20260310_entire</h3>
-                </div>
-            </a>
-            <div>published at: 2026-03-09</div>
-        </div>`
-        <div class="slide">
-            <a href="./20250916_desktop_notification">
-                <img src="./20250916_desktop_notification/preview.png" onerror="this.onerror=null; this.src='./404.png';">
-                <div>
-                    <h3>20250916_desktop_notification</h3>
-                </div>
-            </a>
-            <div>published at: 2025-09-15</div>
-        </div>`
-        <div class="slide">
-            <a href="./20250311_prompt-engineering">
-                <img src="./20250311_prompt-engineering/preview.png" onerror="this.onerror=null; this.src='./404.png';">
-                <div>
-                    <h3>20250311_prompt-engineering</h3>
-                </div>
-            </a>
-            <div>published at: 2025-03-10</div>
-        </div>`
-        <div class="slide">
-            <a href="./20241008_slidev-remake">
-                <img src="./20241008_slidev-remake/preview.png" onerror="this.onerror=null; this.src='./404.png';">
-                <div>
-                    <h3>20241008_slidev-remake</h3>
-                </div>
-            </a>
-            <div>published at: 2024-10-06</div>
-        </div>`
-        <div class="slide">
-            <a href="./example-slidev">
-                <img src="./example-slidev/preview.png" onerror="this.onerror=null; this.src='./404.png';">
-                <div>
-                    <h3>example-slidev</h3>
-                </div>
-            </a>
-            <div>published at: 2024-10-06</div>
-        </div>`
-        <div class="slide">
-            <a href="./20240509_web-diff">
-                <img src="./20240509_web-diff/preview.png" onerror="this.onerror=null; this.src='./404.png';">
-                <div>
-                    <h3>20240509_web-diff</h3>
-                </div>
-            </a>
-            <div>published at: 2024-05-05</div>
-        </div>`
-        <div class="slide">
-            <a href="./20240111_sigstore">
-                <img src="./20240111_sigstore/preview.png" onerror="this.onerror=null; this.src='./404.png';">
-                <div>
-                    <h3>20240111_sigstore</h3>
-                </div>
-            </a>
-            <div>published at: 2024-01-11</div>
-        </div>`
-        <div class="slide">
-            <a href="./20230824_platform-engineering">
-                <img src="./20230824_platform-engineering/preview.png" onerror="this.onerror=null; this.src='./404.png';">
-                <div>
-                    <h3>20230824_platform-engineering</h3>
-                </div>
-            </a>
-            <div>published at: 2023-08-21</div>
-        </div>`
-        <div class="slide">
-            <a href="./20230601_slidev">
-                <img src="./20230601_slidev/preview.png" onerror="this.onerror=null; this.src='./404.png';">
-                <div>
-                    <h3>20230601_slidev</h3>
-                </div>
-            </a>
-            <div>published at: 2023-06-07</div>
-        </div>`
-        <div class="slide">
-            <a href="./20210605_cypress">
-                <img src="./20210605_cypress/preview.png" onerror="this.onerror=null; this.src='./404.png';">
-                <div>
-                    <h3>20210605_cypress</h3>
-                </div>
-            </a>
-            <div>published at: 2023-05-20</div>
-        </div>`
-        <div class="slide">
-            <a href="./20230202_supply-chain">
-                <img src="./20230202_supply-chain/preview.png" onerror="this.onerror=null; this.src='./404.png';">
-                <div>
-                    <h3>20230202_supply-chain</h3>
-                </div>
-            </a>
-            <div>published at: 2023-05-20</div>
-        </div>`
-        <div class="slide">
-            <a href="./20221119_nextjs">
-                <img src="./20221119_nextjs/preview.png" onerror="this.onerror=null; this.src='./404.png';">
-                <div>
-                    <h3>20221119_nextjs</h3>
-                </div>
-            </a>
-            <div>published at: 2023-05-20</div>
-        </div>`
+    <div class="wrap">
+        <header>
+            <h1>Slides</h1>
+            <span class="count">13 decks</span>
+            <a class="repo" href="https://github.com/kaakaa/slidev-resources">kaakaa/slidev-resources &nearr;</a>
+        </header>
+
+        <ul class="slides">
+            <li class="slide">
+                <a href="./20260915_agent_packages">
+                    <img class="thumb" loading="lazy" decoding="async"
+                         src="./20260915_agent_packages/preview.png"
+                         alt="agent packages のプレビュー"
+                         onerror="this.onerror=null; this.src='./404.png';">
+                    <div class="body">
+                        <h2 class="title">agent packages</h2>
+                        <div class="slug">20260915_agent_packages</div>
+                        <div class="meta">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <time datetime="2026-09-12">2026-09-12</time>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="slide">
+                <a href="./20260310_entire">
+                    <img class="thumb" loading="lazy" decoding="async"
+                         src="./20260310_entire/preview.png"
+                         alt="entire のプレビュー"
+                         onerror="this.onerror=null; this.src='./404.png';">
+                    <div class="body">
+                        <h2 class="title">entire</h2>
+                        <div class="slug">20260310_entire</div>
+                        <div class="meta">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <time datetime="2026-03-09">2026-03-09</time>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="slide">
+                <a href="./20250916_desktop_notification">
+                    <img class="thumb" loading="lazy" decoding="async"
+                         src="./20250916_desktop_notification/preview.png"
+                         alt="desktop notification のプレビュー"
+                         onerror="this.onerror=null; this.src='./404.png';">
+                    <div class="body">
+                        <h2 class="title">desktop notification</h2>
+                        <div class="slug">20250916_desktop_notification</div>
+                        <div class="meta">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <time datetime="2025-09-15">2025-09-15</time>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="slide">
+                <a href="./20250311_prompt-engineering">
+                    <img class="thumb" loading="lazy" decoding="async"
+                         src="./20250311_prompt-engineering/preview.png"
+                         alt="prompt engineering のプレビュー"
+                         onerror="this.onerror=null; this.src='./404.png';">
+                    <div class="body">
+                        <h2 class="title">prompt engineering</h2>
+                        <div class="slug">20250311_prompt-engineering</div>
+                        <div class="meta">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <time datetime="2025-03-10">2025-03-10</time>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="slide">
+                <a href="./20241008_slidev-remake">
+                    <img class="thumb" loading="lazy" decoding="async"
+                         src="./20241008_slidev-remake/preview.png"
+                         alt="slidev remake のプレビュー"
+                         onerror="this.onerror=null; this.src='./404.png';">
+                    <div class="body">
+                        <h2 class="title">slidev remake</h2>
+                        <div class="slug">20241008_slidev-remake</div>
+                        <div class="meta">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <time datetime="2024-10-06">2024-10-06</time>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="slide">
+                <a href="./example-slidev">
+                    <img class="thumb" loading="lazy" decoding="async"
+                         src="./example-slidev/preview.png"
+                         alt="example slidev のプレビュー"
+                         onerror="this.onerror=null; this.src='./404.png';">
+                    <div class="body">
+                        <h2 class="title">example slidev</h2>
+                        <div class="slug">example-slidev</div>
+                        <div class="meta">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <time datetime="2024-10-06">2024-10-06</time>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="slide">
+                <a href="./20240509_web-diff">
+                    <img class="thumb" loading="lazy" decoding="async"
+                         src="./20240509_web-diff/preview.png"
+                         alt="web diff のプレビュー"
+                         onerror="this.onerror=null; this.src='./404.png';">
+                    <div class="body">
+                        <h2 class="title">web diff</h2>
+                        <div class="slug">20240509_web-diff</div>
+                        <div class="meta">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <time datetime="2024-05-05">2024-05-05</time>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="slide">
+                <a href="./20240111_sigstore">
+                    <img class="thumb" loading="lazy" decoding="async"
+                         src="./20240111_sigstore/preview.png"
+                         alt="sigstore のプレビュー"
+                         onerror="this.onerror=null; this.src='./404.png';">
+                    <div class="body">
+                        <h2 class="title">sigstore</h2>
+                        <div class="slug">20240111_sigstore</div>
+                        <div class="meta">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <time datetime="2024-01-11">2024-01-11</time>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="slide">
+                <a href="./20230824_platform-engineering">
+                    <img class="thumb" loading="lazy" decoding="async"
+                         src="./20230824_platform-engineering/preview.png"
+                         alt="platform engineering のプレビュー"
+                         onerror="this.onerror=null; this.src='./404.png';">
+                    <div class="body">
+                        <h2 class="title">platform engineering</h2>
+                        <div class="slug">20230824_platform-engineering</div>
+                        <div class="meta">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <time datetime="2023-08-21">2023-08-21</time>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="slide">
+                <a href="./20230601_slidev">
+                    <img class="thumb" loading="lazy" decoding="async"
+                         src="./20230601_slidev/preview.png"
+                         alt="slidev のプレビュー"
+                         onerror="this.onerror=null; this.src='./404.png';">
+                    <div class="body">
+                        <h2 class="title">slidev</h2>
+                        <div class="slug">20230601_slidev</div>
+                        <div class="meta">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <time datetime="2023-06-07">2023-06-07</time>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="slide">
+                <a href="./20210605_cypress">
+                    <img class="thumb" loading="lazy" decoding="async"
+                         src="./20210605_cypress/preview.png"
+                         alt="cypress のプレビュー"
+                         onerror="this.onerror=null; this.src='./404.png';">
+                    <div class="body">
+                        <h2 class="title">cypress</h2>
+                        <div class="slug">20210605_cypress</div>
+                        <div class="meta">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <time datetime="2023-05-20">2023-05-20</time>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="slide">
+                <a href="./20230202_supply-chain">
+                    <img class="thumb" loading="lazy" decoding="async"
+                         src="./20230202_supply-chain/preview.png"
+                         alt="supply chain のプレビュー"
+                         onerror="this.onerror=null; this.src='./404.png';">
+                    <div class="body">
+                        <h2 class="title">supply chain</h2>
+                        <div class="slug">20230202_supply-chain</div>
+                        <div class="meta">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <time datetime="2023-05-20">2023-05-20</time>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="slide">
+                <a href="./20221119_nextjs">
+                    <img class="thumb" loading="lazy" decoding="async"
+                         src="./20221119_nextjs/preview.png"
+                         alt="nextjs のプレビュー"
+                         onerror="this.onerror=null; this.src='./404.png';">
+                    <div class="body">
+                        <h2 class="title">nextjs</h2>
+                        <div class="slug">20221119_nextjs</div>
+                        <div class="meta">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            <time datetime="2023-05-20">2023-05-20</time>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+        <footer>
+            Built with <a href="https://sli.dev">Slidev</a>.
+            各スライドの PDF は <a href="https://github.com/kaakaa/slidev-resources/releases">Releases</a> から取得できます。
+        </footer>
     </div>
 </body>
 </html>
